@@ -51,6 +51,7 @@ public class Securityconfig {
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
+                http.addFilterBefore(jwtAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
 
 
         return http.build();
@@ -68,5 +69,9 @@ public class Securityconfig {
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    JWTAuthenticationFilter jwtAuthenticationFilter(){
+        return new JWTAuthenticationFilter();
     }
 }
